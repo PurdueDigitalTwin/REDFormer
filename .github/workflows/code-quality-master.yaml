@@ -1,0 +1,22 @@
+name: Code Quality Master
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      # checkout to the master branch
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # configurate python environment
+      - name: Setup Python
+        uses: actions/setup-python@v2
+
+      # run pre-commit checks
+      - name: Run pre-commits scripts
+        uses: pre-commit/actions@v2.0.3

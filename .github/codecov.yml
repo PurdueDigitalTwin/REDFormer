@@ -1,0 +1,16 @@
+coverage:
+  status:
+    # measures overall project codebase coverage
+    project:
+      default:
+        # uplimit decrease in coverage to consider not success
+        threshold: 75%
+
+    # measures PR or single commit coverage
+    patch:
+      default:
+        # uplimit decrease in coverage to consider not sucess
+        threashold: 100%
+
+    # project: off
+    # patch: off

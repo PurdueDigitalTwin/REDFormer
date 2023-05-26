@@ -1,0 +1,19 @@
+name: redformer
+channels:
+  - conda-forge
+  - nvidia
+  - pytorch
+dependencies:
+  - python>=3.6
+  - nb_conda_kernels
+  - cuda=11.0
+  - cudatoolkit=11.0
+  - pytorch
+  - torchvision
+  - pip:
+    - openmim
+  - mim:
+    - mmcv-full
+    - mmdet
+    - mmsegmentation
+
