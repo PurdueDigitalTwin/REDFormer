@@ -53,15 +53,73 @@ In this work, we propose a novel transformer-based  3D object detection model ``
 
 ## Getting Started
 
-### Installation
+###  Installation
 
 Please refer to our [installation guide](docs/installation.md) for details.
 
 ### Data Preparation
+**Download nuscenes full dataset**
+
+Please refer to nuScenes official website to download nuScenes v1.0 full dataset and CAN bus expansion. [Nuscenes Offical Website](https://www.nuscenes.org/download)
+
+**Generating annotation files**
+```
+bash scripts/create_data.sh
+```
+
+**Download the checkpoint files**
+
+Please put the 'bevformer_raw.pth' to 'ckpts/raw_model' and put 'R101-DCN' to folder 'ckpts'.  
+
+|Backbone     | Download |
+|:-----------:|:---------:|
+|R101-DCN| [model download](https://github.com/cancui19/model_storage/releases/download/redformer/r101_dcn_fcos3d_pretrain.pth)
+|bevformer_raw| [model download](https://github.com/cancui19/model_storage/releases/download/redformer/bevformer_raw.pth)
+
+|   Model     | Download |
+|:----------:|:---------:|
+|Our REDFormer| [model download](https://github.com/cancui19/model_storage/releases/download/redformer/redformer.pth)
+
+
+
+
+**Folder structure**
+
+```plain
+REDFormer
+├── ckpts        # folder for checkpoints
+│   ├── raw_model/
+│   │   ├── bevformer_raw.pth
+    ├── r101_dcn_fcos3d_pretrain.pth
+    ├── redformer.pth
+├── data         # folder for NuScenes dataset
+│   ├── nuscenes/
+│   │   ├── full/
+│   │   │   ├── can_bus/
+│   │   │   ├── maps/
+│   │   │   ├── samples/
+│   │   │   ├── sweeps/
+│   │   │   ├── v1.0-test/
+|   |   │   ├── v1.0-trainval/
+|   |   │   ├── nuscenes_infos_ext_train.pkl
+|   |   │   ├── nuscenes_infos_ext_val.pkl
+|   |   │   ├── nuscenes_infos_ext_rain_val.pkl
+|   |   │   ├── nuscenes_infos_ext_night_val.pkl
+├── projects/
+├── scripts/
+├── tools/
+```
 
 ### Training
+```
+bash scripts/train.sh
+```
 
 ### Test
+```
+bash scripts/test.sh
+```
+If you want to test the performance on rain or night scenes, please go the config file [Here](projects/configs/redformer/redformer.py) (`projects/configs/redformer/redformer.py`)  and modify the value of `environment_test_subset`.
 
 ---
 
