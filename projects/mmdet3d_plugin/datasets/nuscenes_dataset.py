@@ -26,14 +26,17 @@ class CustomNuScenesDataset(NuScenesDataset):
                  env_info=None,
                  queue_length=4,
                  bev_size=(200, 200),
-                 overlap_test=False, *args, **kwargs):
+                 overlap_test=False,
+                 env_test_subset=None,
+                 *args, **kwargs):
         super().__init__(*args, **kwargs)
         if env_info is None:
             env_info = dict()
+        self.env_info = env_info
         self.queue_length = queue_length
         self.overlap_test = overlap_test
         self.bev_size = bev_size
-        self.env_info = env_info
+        self.env_test_subset = env_test_subset
 
     def prepare_train_data(self, index):
         """
@@ -250,10 +253,9 @@ class CustomNuScenesDataset(NuScenesDataset):
                              verbose=True)
 
         output_dir = osp.join(*osp.split(result_path)[:-1])
-
         eval_set_map = {
             'v1.0-mini': 'mini_val',
-            'v1.0-trainval': 'val',
+            'v1.0-trainval': self.env_test_subset
         }
         self.nusc_eval = NuScenesEval_custom(
             self.nusc,

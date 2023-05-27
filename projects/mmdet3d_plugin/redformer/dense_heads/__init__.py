@@ -1,1 +1,1 @@
-from .bevformer_head import BEVFormerHead
+from .redformer_head import REDFormerHead

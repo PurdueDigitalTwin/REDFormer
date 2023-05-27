@@ -17,6 +17,7 @@ from shapely.geometry import MultiPoint, box
 from typing import List, Tuple, Union
 from nuscenes.utils.geometry_utils import view_points
 from mmdet3d.datasets import NuScenesDataset
+import pickle
 
 from tools.data_converter.nuscenes_converter import get_available_scenes, obtain_sensor2top
 
@@ -113,6 +114,29 @@ def create_nuscenes_infos(root_path,
         data['infos'] = val_nusc_infos
         info_val_path = osp.join(out_path, '{}_infos_ext_val.pkl'.format(info_prefix))
         mmcv.dump(data, info_val_path)
+
+    ## create rain and night data
+    if info_prefix == "nuscenes":
+        val_path = osp.join(out_path, '{}_infos_ext_val.pkl'.format(info_prefix))
+        with open(val_path, 'rb') as f:
+            # Load the data from the file using pickle.load
+            data = pickle.load(f)
+
+        data_rain = {'infos': [], 'metadata': {'version': 'v1.0-trainval'}}
+        data_night = {'infos': [], 'metadata': {'version': 'v1.0-trainval'}}
+
+        for i in range(len(data['infos'])):
+            if data['infos'][i]['rain'] == True:
+                data_rain['infos'].append(data['infos'][i])
+            if data['infos'][i]['time_of_day'] == True:
+                data_night['infos'].append(data['infos'][i])
+
+        with open(osp.join(out_path,'nuscenes_infos_ext_rain_val.pkl'), 'wb') as file:
+            pickle.dump(data_rain, file)
+
+        with open(osp.join(out_path,'nuscenes_infos_ext_night_val.pkl'), 'wb') as file:
+            pickle.dump(data_night, file)
+
 
 
 def _get_can_bus_info(nusc, nusc_can_bus, sample):
@@ -304,8 +328,9 @@ def _fill_trainval_infos(nusc,
 if __name__ == '__main__':
     create_nuscenes_infos(
         root_path="data/nuscenes/full",
-        out_path="data/nuscenes/annotations",
-        can_bus_root_path="data/nuscenes",
+        out_path="data/nuscenes/full",
+        can_bus_root_path="data/nuscenes/full",
         info_prefix="nuscenes",
         version="v1.0-trainval",
         max_sweeps=10)
+

@@ -47,6 +47,8 @@ environment_info = dict(
     use_tod=True  # Time of Day
 )
 
+environment_test_subset = 'val'  # choices=['val', customrainval','customnightval']
+
 model = dict(
     type='REDFormer',
     use_grid_mask=True,
@@ -73,7 +75,7 @@ model = dict(
         num_outs=_num_levels_,
         relu_before_extra_convs=True),
     pts_bbox_head=dict(
-        type='BEVFormerHead',
+        type='REDFormerHead',
         bev_h=bev_h_,
         bev_w=bev_w_,
         num_query=900,
@@ -204,6 +206,12 @@ train_pipeline = [
 ]
 
 # dict(type='CustomLoadMultiViewImageFromFiles', to_float32=True),
+test_pickle_file_name_dict = {
+    'val': 'nuscenes_infos_ext_val.pkl',
+    'customrainval': 'nuscenes_infos_ext_rain_val.pkl',
+    'customnightval': 'nuscenes_infos_ext_night_val.pkl',
+}
+
 test_pipeline = [
     dict(type='LoadMultiViewImageFromFiles', to_float32=True),
     dict(type='LoadMultiRadarFromFiles', to_float32=True),
@@ -256,12 +264,13 @@ data = dict(
              samples_per_gpu=1),
     test=dict(type=dataset_type,
               data_root=data_root,
-              ann_file=os.path.join(anno_root, 'nuscenes_infos_ext_val.pkl'),
+              ann_file=os.path.join(anno_root, test_pickle_file_name_dict[environment_test_subset]),
               pipeline=test_pipeline,
               bev_size=(bev_h_, bev_w_),
               classes=class_names,
               modality=input_modality,
-              env_info=environment_info),
+              env_info=environment_info,
+              env_test_subset=environment_test_subset),
     shuffler_sampler=dict(type='DistributedGroupSampler'),
     nonshuffler_sampler=dict(type='DistributedSampler')
 )
@@ -294,9 +303,4 @@ log_config = dict(
     ])
 
 checkpoint_config = dict(interval=1)
-load_from = "ckpts/raw_model/bevformer_small_epoch_24.pth"
-# load_from = 'runs/lre-5_embedding_onlyr/bevformer_small/latest.pth'
-# load_from = 'work_dirs/bevformer_small/latest.pth'
-# resume_from = "runs/lre_5_em_wt_rs=1234/bevformer_small/epoch_1.pth"
-# load_from = "ckpts/radarpts_pointnet.pth"
-# resume_from = 'work_dirs/bevformer_small/epoch_1.pth'
+load_from = "ckpts/raw_model/bevformer_raw.pth"

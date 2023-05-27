@@ -112,9 +112,8 @@ class RadarBackbone(nn.Module):
 
         return output
 
-
 @HEADS.register_module()
-class BEVFormerHead(DETRHead):
+class REDFormerHead(DETRHead):
     """Head of Detr3D.
     Args:
         with_box_refine (bool): Whether to refine the reference points
@@ -161,7 +160,7 @@ class BEVFormerHead(DETRHead):
         self.real_w = self.pc_range[3] - self.pc_range[0]
         self.real_h = self.pc_range[4] - self.pc_range[1]
         self.num_cls_fcs = num_cls_fcs - 1
-        super(BEVFormerHead, self).__init__(
+        super(REDFormerHead, self).__init__(
             *args, transformer=transformer, **kwargs)
         self.code_weights = nn.Parameter(torch.tensor(
             self.code_weights, requires_grad=False), requires_grad=False)
