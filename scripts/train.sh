@@ -1,5 +1,5 @@
 # shellcheck disable=SC2164
-cd /media/mayson/SamsungSSD/github/sensorfusion
+cd /home/can/Desktop/research/REDFormer  ## go to the REDFormer dir
 export PYTHONPATH=$PWD/:$PYTHONPATH
 python ./tools/train.py \
-  ./projects/configs/bevformer/redformer_small.py
+  ./projects/configs/redformer/redformer_small.py

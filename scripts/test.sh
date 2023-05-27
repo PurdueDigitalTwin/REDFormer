@@ -1,7 +1,7 @@
 # shellcheck disable=SC2164
-cd ~/Desktop/research/sensorfusion
+cd /home/can/Desktop/research/REDFormer  ## go to the REDFormer dir
 export PYTHONPATH=$PWD/:$PYTHONPATH
 python ./tools/test.py \
-./projects/configs/bevformer/redformer_small.py \
-ckpts/raw_model/bevformer_small_epoch_24.pth \
+./projects/configs/redformer/redformer_small.py \
+ckpts/redformer.pth \
 --eval bbox
