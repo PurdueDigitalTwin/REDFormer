@@ -127,7 +127,15 @@ If you want to test the performance on rain or night scenes, please go the confi
 
 If you find REDFormer usefule, you are highly encouraged to cite our paper:
 
-```bibtex
+```
+@misc{cui2023radar,
+      title={Radar Enlighten the Dark: Enhancing Low-Visibility Perception for Automated Vehicles with Camera-Radar Fusion}, 
+      author={Can Cui and Yunsheng Ma and Juanwu Lu and Ziran Wang},
+      year={2023},
+      eprint={2305.17318},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
 ```
 
 ---
