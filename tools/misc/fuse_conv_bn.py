@@ -1,24 +1,21 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import argparse
+
 import torch
 from mmcv.runner import save_checkpoint
-from torch import nn as nn
-
 from mmdet.apis import init_model
+from torch import nn as nn
 
 
 def fuse_conv_bn(conv, bn):
-    """During inference, the functionary of batch norm layers is turned off but
-    only the mean and var alone channels are used, which exposes the chance to
-    fuse it with the preceding conv layers to save computations and simplify
-    network structures."""
+    """During inference, the functionary of batch norm layers is turned off but only the mean and
+    var alone channels are used, which exposes the chance to fuse it with the preceding conv layers
+    to save computations and simplify network structures."""
     conv_w = conv.weight
-    conv_b = conv.bias if conv.bias is not None else torch.zeros_like(
-        bn.running_mean)
+    conv_b = conv.bias if conv.bias is not None else torch.zeros_like(bn.running_mean)
 
     factor = bn.weight / torch.sqrt(bn.running_var + bn.eps)
-    conv.weight = nn.Parameter(conv_w *
-                               factor.reshape([conv.out_channels, 1, 1, 1]))
+    conv.weight = nn.Parameter(conv_w * factor.reshape([conv.out_channels, 1, 1, 1]))
     conv.bias = nn.Parameter((conv_b - bn.running_mean) * factor + bn.bias)
     return conv
 
@@ -45,11 +42,10 @@ def fuse_module(m):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(
-        description='fuse Conv and BN layers in a model')
-    parser.add_argument('config', help='config file path')
-    parser.add_argument('checkpoint', help='checkpoint file path')
-    parser.add_argument('out', help='output path of the converted model')
+    parser = argparse.ArgumentParser(description="fuse Conv and BN layers in a model")
+    parser.add_argument("config", help="config file path")
+    parser.add_argument("checkpoint", help="checkpoint file path")
+    parser.add_argument("out", help="output path of the converted model")
     args = parser.parse_args()
     return args
 
@@ -63,5 +59,5 @@ def main():
     save_checkpoint(fused_model, args.out)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

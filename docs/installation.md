@@ -10,7 +10,7 @@ We built our model with the `mmdetection3d` project. Users may refer to their [`
     - [Activate environment and install `mmdetection3d` library](#activate-environment-and-install-mmdetection3d-library)
   - [Build the Project](#build-the-project)
 
----
+______________________________________________________________________
 
 ## Download REDFormer Model
 
@@ -21,7 +21,7 @@ cd && git clone --depth=1 -b master https://https://github.com/PurdueDigitalTwin
 cd REDFormer
 ```
 
----
+______________________________________________________________________
 
 ## Create Virtual Environment
 
@@ -55,7 +55,7 @@ To quite the virtual environment, use the following scripit:
 conda deactivate redformer
 ```
 
----
+______________________________________________________________________
 
 ## Build the Project
 
@@ -65,6 +65,6 @@ Finally, we recommend you to install our project as a local PyPI development pac
 pip install -e .
 ```
 
----
+______________________________________________________________________
 
 That's it! Now you are all set to go.

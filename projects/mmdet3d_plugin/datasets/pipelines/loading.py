@@ -6,17 +6,15 @@ from pyquaternion import Quaternion
 
 
 @PIPELINES.register_module()
-class LoadMultiRadarFromFiles(object):
+class LoadMultiRadarFromFiles:
     """Load radar points.
+
     Args:
         load_dim (int): Dimension number of the loaded points. Defaults to 18.
         use_dim (list[int]): Which dimension to use. Defaults to [0, 1, 2, 3, 4].
     """
 
-    def __init__(self,
-                 to_float32=False,
-                 load_dim=18,
-                 use_dim=None):
+    def __init__(self, to_float32=False, load_dim=18, use_dim=None):
         self.load_dim = load_dim
         if use_dim is None:
             use_dim = [0, 1, 2]
@@ -24,9 +22,11 @@ class LoadMultiRadarFromFiles(object):
         self.to_float32 = to_float32
 
     def __call__(self, results):
-        filename = results['radar_filename']
+        filename = results["radar_filename"]
         radar = []
-        for name, radar2lidar_r, radar2lidar_t in zip(filename, results['radar2lidar_rs'], results['radar2lidar_ts']):
+        for name, radar2lidar_r, radar2lidar_t in zip(
+            filename, results["radar2lidar_rs"], results["radar2lidar_ts"]
+        ):
             radar_point_cloud = RadarPointCloud.from_file(name)
             points = radar_point_cloud.points
             points = points.transpose()
@@ -38,5 +38,5 @@ class LoadMultiRadarFromFiles(object):
         radar = np.concatenate(radar, axis=0)
         if self.to_float32:
             radar = radar.astype(np.float32)
-        results['radar_points'] = radar
+        results["radar_points"] = radar
         return results
