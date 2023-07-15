@@ -7,5 +7,5 @@ setup(
     author="Can Cui, Yunsheng Ma, Juanwu Lu",
     author_email="cancui@purude.edu, yunsheng@purdue.edu, juanwu@purdue.edu",
     license="MIT License",
-    packages=find_packages()
+    packages=find_packages(),
 )

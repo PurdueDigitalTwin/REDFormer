@@ -11,9 +11,8 @@ dependencies:
   - pytorch
   - torchvision
   - pip:
-    - openmim
+      - openmim
   - mim:
-    - mmcv-full
-    - mmdet
-    - mmsegmentation
-
+      - mmcv-full
+      - mmdet
+      - mmsegmentation
