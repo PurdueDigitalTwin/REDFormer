@@ -100,6 +100,9 @@ REDFormer
 │   │   │   ├── nuscenes_infos_ext_val.pkl
 │   │   │   ├── nuscenes_infos_ext_rain_val.pkl
 │   │   │   └── nuscenes_infos_ext_night_val.pkl
+├── projects/
+├── scripts/
+├── tools/
 ├── environment.yml
 ├── LICENSE
 ├── README.md
