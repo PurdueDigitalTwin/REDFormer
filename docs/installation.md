@@ -8,6 +8,7 @@ We built our model with the `mmdetection3d` project. Users may refer to their [`
     - [Install conda package](#install-conda-package)
     - [Create conda environment](#create-conda-environment)
     - [Activate environment and install `mmdetection3d` library](#activate-environment-and-install-mmdetection3d-library)
+  - [Caution:](#caution)
   - [Build the Project](#build-the-project)
 
 ---
@@ -45,9 +46,13 @@ Use the following steps to install the `mmdetection3d` library locally.
 
 ```bash
 cd && git clone https://github.com/open-mmlab/mmdetection3d.git && cd mmdetection3d
+git checkout 1.0
 conda activate redformer
 pip install -e .
 ```
+
+## Caution:
+If the aforementioned steps do not provide you with the correct version of the mmdet3d library, please refer to this [page](https://github.com/open-mmlab/mmdetection3d/blob/1.0/docs/en/getting_started.md) for detailed instructions.
 
 To quite the virtual environment, use the following scripit:
 
