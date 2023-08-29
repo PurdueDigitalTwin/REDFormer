@@ -129,17 +129,16 @@ ______________________________________________________________________
 
 ## Citatation
 
-If you find REDFormer usefule, you are highly encouraged to cite our paper:
+If you find REDFormer useful, you are highly encouraged to cite our paper:
 
 ```
-@misc{
-  cui2023radar,
-  title={Radar Enlighten the Dark: Enhancing Low-Visibility Perception for Automated Vehicles with Camera-Radar Fusion},
-  author={Can Cui and Yunsheng Ma and Juanwu Lu and Ziran Wang},
-  year={2023},
-  eprint={2305.17318},
-  archivePrefix={arXiv},
-  primaryClass={cs.CV}
+@article{cui_radar_2023,
+	title = {Radar {Enlighten} the {Dark}: {Enhancing} {Low}-{Visibility} {Perception} for {Automated} {Vehicles} with {Camera}-{Radar} {Fusion}},
+	shorttitle = {{REDFormer}},
+	doi = {10.48550/arXiv.2305.17318},
+	journal = {IEEE International Conference on Intelligent Transportation Systems (ITSC)},
+	author = {Cui, Can and Ma, Yunsheng and Lu, Juanwu and Wang, Ziran},
+	year = {2023},
 }
 ```
 
